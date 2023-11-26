@@ -1,6 +1,7 @@
 package com.luckyi.statemachine.colaStateMachine;
 
 /**
+ * 请假流程事件
  * @author luckyi
  */
 public enum Event {

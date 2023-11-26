@@ -13,6 +13,7 @@ import org.springframework.statemachine.config.builders.StateMachineStateConfigu
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 import org.springframework.statemachine.guard.Guard;
 import org.springframework.statemachine.state.State;
+import org.springframework.stereotype.Component;
 
 import java.util.EnumSet;
 
@@ -26,10 +27,14 @@ import static com.luckyi.statemachine.colaStateMachine.LeaveStatusEnum.*;
  * @version 1.0
  * @date 2023-11-17 11:56
  */
+@Component
 public class LeaveStateMachineConfig extends StateMachineConfigurerAdapter<LeaveStatusEnum, Event> {
 
     private static final Logger log = LoggerFactory.getLogger(StateMachineRegist.class);
 
+    /**
+     * 状态机流程上下文信息标识
+     */
     private final String STATE_MACHINE_CONTEXT = "leaveStateMachine";
 
     /**
@@ -54,18 +59,19 @@ public class LeaveStateMachineConfig extends StateMachineConfigurerAdapter<Leave
     @Override
     public void configure(StateMachineTransitionConfigurer<LeaveStatusEnum, Event> transitions) throws Exception {
         transitions
-                //
+                // 内部转换 流程状态不变 只执行动作
                 .withInternal().state(LEAVE_SUBMIT).event(EMPLOYEE_SUBMIT).action(doAction())
                 .and()
+                // 外部转换 指定事件触发流程状态变化 （触发事件->校验条件->执行动作->状态变化）
                 .withExternal().source(LEAVE_SUBMIT).target(LEADER_AUDIT_PASS).event(DIRECT_LEADER_AUDIT).guard(checkIfPass()).action(doAction())
                 .and()
-                .withExternal().source(LEAVE_SUBMIT).target(LEADER_AUDIT_REFUSE).event(DIRECT_LEADER_AUDIT).guard(checkIfNotPass())
+                .withExternal().source(LEAVE_SUBMIT).target(LEADER_AUDIT_REFUSE).event(DIRECT_LEADER_AUDIT).guard(checkIfNotPass()).action(doAction())
                 .and()
-                .withExternal().source(LEADER_AUDIT_PASS).target(HR_PASS).event(HR_AUDIT).guard(checkIfPass())
+                .withExternal().source(LEADER_AUDIT_PASS).target(HR_PASS).event(HR_AUDIT).guard(checkIfPass()).action(doAction())
                 .and()
-                .withExternal().source(LEADER_AUDIT_PASS).target(HR_REFUSE).event(HR_AUDIT).guard(checkIfNotPass())
+                .withExternal().source(LEADER_AUDIT_PASS).target(HR_REFUSE).event(HR_AUDIT).guard(checkIfNotPass()).action(doAction())
                 .and()
-                .withExternal().source(HR_PASS).target(END).event(COMPLETE);
+                .withExternal().source(HR_PASS).target(END).event(COMPLETE).action(doAction());
 
     }
 
