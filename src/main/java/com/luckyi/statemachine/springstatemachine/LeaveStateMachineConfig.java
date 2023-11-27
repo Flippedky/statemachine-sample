@@ -1,24 +1,26 @@
 package com.luckyi.statemachine.springstatemachine;
 
+import com.luckyi.statemachine.colaStateMachine.Event;
 import com.luckyi.statemachine.colaStateMachine.LeaveContext;
 import com.luckyi.statemachine.colaStateMachine.LeaveStatusEnum;
-import com.luckyi.statemachine.colaStateMachine.Event;
 import com.luckyi.statemachine.colaStateMachine.StateMachineRegist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.statemachine.action.Action;
+import org.springframework.statemachine.config.EnableStateMachine;
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 import org.springframework.statemachine.guard.Guard;
 import org.springframework.statemachine.state.State;
-import org.springframework.stereotype.Component;
 
 import java.util.EnumSet;
 
 import static com.luckyi.statemachine.colaStateMachine.Event.*;
 import static com.luckyi.statemachine.colaStateMachine.LeaveStatusEnum.*;
+import static com.luckyi.statemachine.domain.StateMachineConstant.STATE_MACHINE_CONTEXT;
 
 /**
  * 请假流程状态机配置
@@ -27,15 +29,11 @@ import static com.luckyi.statemachine.colaStateMachine.LeaveStatusEnum.*;
  * @version 1.0
  * @date 2023-11-17 11:56
  */
-@Component
+@Configuration
+@EnableStateMachine(name = "leaveStateMachine")
 public class LeaveStateMachineConfig extends StateMachineConfigurerAdapter<LeaveStatusEnum, Event> {
 
     private static final Logger log = LoggerFactory.getLogger(StateMachineRegist.class);
-
-    /**
-     * 状态机流程上下文信息标识
-     */
-    private final String STATE_MACHINE_CONTEXT = "leaveStateMachine";
 
     /**
      * 配置流程状态
@@ -47,7 +45,7 @@ public class LeaveStateMachineConfig extends StateMachineConfigurerAdapter<Leave
         states.withStates().
                 // 指定流程初始化状态
                 initial(LEAVE_SUBMIT)
-                //
+                // 指定流程中所有流转的状态
                 .states(EnumSet.allOf(LeaveStatusEnum.class));
     }
 
