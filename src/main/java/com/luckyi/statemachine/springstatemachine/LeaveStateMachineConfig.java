@@ -1,8 +1,8 @@
 package com.luckyi.statemachine.springstatemachine;
 
-import com.luckyi.statemachine.colaStateMachine.Event;
-import com.luckyi.statemachine.colaStateMachine.LeaveContext;
-import com.luckyi.statemachine.colaStateMachine.LeaveStatusEnum;
+import com.luckyi.statemachine.domain.Event;
+import com.luckyi.statemachine.domain.LeaveContext;
+import com.luckyi.statemachine.domain.LeaveStatusEnum;
 import com.luckyi.statemachine.colaStateMachine.StateMachineRegist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +18,8 @@ import org.springframework.statemachine.state.State;
 
 import java.util.EnumSet;
 
-import static com.luckyi.statemachine.colaStateMachine.Event.*;
-import static com.luckyi.statemachine.colaStateMachine.LeaveStatusEnum.*;
+import static com.luckyi.statemachine.domain.Event.*;
+import static com.luckyi.statemachine.domain.LeaveStatusEnum.*;
 import static com.luckyi.statemachine.domain.StateMachineConstant.STATE_MACHINE_CONTEXT;
 
 /**

@@ -1,4 +1,4 @@
-package com.luckyi.statemachine.colaStateMachine;
+package com.luckyi.statemachine.domain;
 
 /**
  * 请假状态枚举

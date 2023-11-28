@@ -1,4 +1,4 @@
-package com.luckyi.statemachine.colaStateMachine;
+package com.luckyi.statemachine.domain;
 
 /**
  * 请假流程自定义上下文
@@ -17,6 +17,14 @@ public class LeaveContext {
      * 拒绝原因
      */
     private String refuseReason;
+
+    public LeaveContext() {
+    }
+
+    public LeaveContext(Integer idea, String refuseReason) {
+        this.idea = idea;
+        this.refuseReason = refuseReason;
+    }
 
     public Integer getIdea() {
         return idea;
