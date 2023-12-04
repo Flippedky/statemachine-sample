@@ -1,11 +1,12 @@
 package com.luckyi.statemachine.springstatemachine;
 
+import com.luckyi.statemachine.colaStateMachine.StateMachineRegist;
 import com.luckyi.statemachine.domain.Event;
 import com.luckyi.statemachine.domain.LeaveContext;
 import com.luckyi.statemachine.domain.LeaveStatusEnum;
-import com.luckyi.statemachine.colaStateMachine.StateMachineRegist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.statemachine.action.Action;
@@ -14,6 +15,8 @@ import org.springframework.statemachine.config.StateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 import org.springframework.statemachine.guard.Guard;
+import org.springframework.statemachine.persist.DefaultStateMachinePersister;
+import org.springframework.statemachine.persist.StateMachinePersister;
 import org.springframework.statemachine.state.State;
 
 import java.util.EnumSet;
@@ -72,6 +75,11 @@ public class LeaveStateMachineConfig extends StateMachineConfigurerAdapter<Leave
                 .withExternal().source(HR_PASS).target(END).event(COMPLETE).action(doAction());
 
     }
+
+    @Bean
+    public StateMachinePersister<LeaveStatusEnum, Event ,String> leaveStateMachinePersister(){
+        return new DefaultStateMachinePersister<>(new LeaveStateMachinePersist());
+    };
 
     /**
      * 执行动作
