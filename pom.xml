@@ -44,12 +44,20 @@
             <version>3.1.0</version>
         </dependency>
 
+        <!--kryo序列化-->
         <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-            <version>2.0.42</version>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-kryo</artifactId>
+            <version>3.1.0</version>
         </dependency>
 
+        <!--redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!--Gson-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

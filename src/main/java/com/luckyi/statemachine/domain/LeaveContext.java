@@ -14,16 +14,16 @@ public class LeaveContext {
     private Integer idea;
 
     /**
-     * 拒绝原因
+     * 审批内容
      */
-    private String refuseReason;
+    private String approvalContent;
 
     public LeaveContext() {
     }
 
-    public LeaveContext(Integer idea, String refuseReason) {
+    public LeaveContext(Integer idea, String approvalContent) {
         this.idea = idea;
-        this.refuseReason = refuseReason;
+        this.approvalContent = approvalContent;
     }
 
     public Integer getIdea() {
@@ -34,11 +34,11 @@ public class LeaveContext {
         this.idea = idea;
     }
 
-    public String getRefuseReason() {
-        return refuseReason;
+    public String getApprovalContent() {
+        return approvalContent;
     }
 
-    public void setRefuseReason(String refuseReason) {
-        this.refuseReason = refuseReason;
+    public void setApprovalContent(String approvalContent) {
+        this.approvalContent = approvalContent;
     }
 }
