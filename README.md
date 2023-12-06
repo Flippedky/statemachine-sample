@@ -22,3 +22,4 @@
 - [spring-statemachine 状态机自定义持久化入库](https://blog.csdn.net/sjy_2010/article/details/133862831)
 - [基于reactorAPI的spring-statemachine的状态机实战](https://juejin.cn/post/7240006787947331642)
 - [状态机的技术选型](https://blog.csdn.net/zhangfenshi123/article/details/127852110)
+- [状态机的介绍和使用](https://juejin.cn/post/7261983866420002874)
