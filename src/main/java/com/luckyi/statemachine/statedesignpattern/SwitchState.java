@@ -1,4 +1,4 @@
-package com.luckyi.statemachine.stateDesignPattern;
+package com.luckyi.statemachine.statedesignpattern;
 
 /**
  * 开关状态接口

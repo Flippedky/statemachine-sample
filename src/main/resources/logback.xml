@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <contextName>concurrent-programming</contextName>
-    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
-    <property name="loggingRoot"
-              value="./logs" />
-    <property name="logLevel" value="info" />
+    <contextName>statemachine-sample</contextName>
 
-
-    <appender name="CONSOLE"
-              class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%date [%thread]%X{mdcData} %-5level %logger{10} [%file:%line] - %msg%n
             </pattern>
         </encoder>
     </appender>
 
+    <!-- 日志级别从低到高分为TRACE < DEBUG < INFO < WARN < ERROR < FATAL，如果设置为WARN，则低于WARN的信息都不会输出-->
     <root>
-        <level value="info" />
-        <appender-ref ref="CONSOLE"></appender-ref>
+        <level value="INFO">
+            <appender-ref ref="CONSOLE" />
+        </level>
     </root>
-
-
 </configuration>

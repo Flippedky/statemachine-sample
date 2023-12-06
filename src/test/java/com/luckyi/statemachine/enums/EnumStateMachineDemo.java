@@ -1,13 +1,12 @@
 package com.luckyi.statemachine.enums;
 
-import com.luckyi.statemachine.enumState.LeaveRequestStateEnum;
+import com.luckyi.statemachine.enumstate.LeaveRequestStateEnum;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * 枚举状态机<br>
- * 大家终点关注状态流转逻辑
  *
  * @author luckyi
  */

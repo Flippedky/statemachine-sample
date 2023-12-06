@@ -25,10 +25,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static com.luckyi.statemachine.domain.Event.DIRECT_LEADER_AUDIT;
-import static com.luckyi.statemachine.domain.Event.EMPLOYEE_SUBMIT;
-import static com.luckyi.statemachine.domain.LeaveStatusEnum.LEADER_AUDIT_PASS;
-import static com.luckyi.statemachine.domain.LeaveStatusEnum.LEAVE_SUBMIT;
+import static com.luckyi.statemachine.domain.Event.*;
+import static com.luckyi.statemachine.domain.LeaveStatusEnum.*;
 import static com.luckyi.statemachine.domain.StateMachineConstant.STATE_MACHINE_CONTEXT;
 
 @SpringBootTest
@@ -93,6 +91,33 @@ public class LeaveStateMachineTest {
             LeaveStatusEnum status = state.getId();
             Assertions.assertEquals(LEADER_AUDIT_PASS, status);
             System.out.println(">>>>>>>>>>DIRECT_LEADER_AUDIT(直属领导审批) execute success!");
+        }).subscribe();
+    }
+
+    @Test
+    public void hrAudit() throws Exception {
+        // 从历史状态中恢复状态机
+        StateMachine<LeaveStatusEnum, Event> stateMachine = leaveStateMachinePersister.restore(leaveStateMachine, "leaveStateMachine");
+        // 流程自定义上下文信息
+        LeaveContext leaveContext = new LeaveContext(1, "缺少必要材料，请重新提交！");
+        // 构建事件消息
+        Message<Event> message = MessageBuilder.withPayload(HR_AUDIT).setHeader(STATE_MACHINE_CONTEXT, leaveContext).build();
+        // 向状态机发送事件 获得一个结果流
+        Flux<StateMachineEventResult<LeaveStatusEnum, Event>> resultFlux = stateMachine.sendEvent(Mono.just(message));
+        // 订阅结果流 获取状态机当前状态
+        resultFlux.doOnComplete(() -> {
+            // 数据流完成后 将状态机持久化到本地文件
+            try {
+                leaveStateMachinePersister.persist(leaveStateMachine, "leaveStateMachine");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("message has sent");
+        }).doOnNext(flux -> {
+            State<LeaveStatusEnum, Event> state = flux.getRegion().getState();
+            LeaveStatusEnum status = state.getId();
+            Assertions.assertEquals(HR_REFUSE, status);
+            System.out.println(">>>>>>>>>>HR_AUDIT(HR审批) execute success!");
         }).subscribe();
     }
 

@@ -1,8 +1,8 @@
 package com.luckyi.statemachine.statePattern;
 
-import com.luckyi.statemachine.stateDesignPattern.Context;
-import com.luckyi.statemachine.stateDesignPattern.TurnOffAction;
-import com.luckyi.statemachine.stateDesignPattern.TurnOnAction;
+import com.luckyi.statemachine.statedesignpattern.Context;
+import com.luckyi.statemachine.statedesignpattern.TurnOffAction;
+import com.luckyi.statemachine.statedesignpattern.TurnOnAction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

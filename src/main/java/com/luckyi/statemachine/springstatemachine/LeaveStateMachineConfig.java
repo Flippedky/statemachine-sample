@@ -1,6 +1,6 @@
 package com.luckyi.statemachine.springstatemachine;
 
-import com.luckyi.statemachine.colaStateMachine.StateMachineRegist;
+import com.luckyi.statemachine.colastatemachine.StateMachineRegist;
 import com.luckyi.statemachine.domain.Event;
 import com.luckyi.statemachine.domain.LeaveContext;
 import com.luckyi.statemachine.domain.LeaveStatusEnum;
@@ -73,12 +73,15 @@ public class LeaveStateMachineConfig extends StateMachineConfigurerAdapter<Leave
                 .withExternal().source(LEADER_AUDIT_PASS).target(HR_REFUSE).event(HR_AUDIT).guard(checkIfNotPass()).action(doAction())
                 .and()
                 .withExternal().source(HR_PASS).target(END).event(COMPLETE).action(doAction());
-
     }
 
+    /**
+     * 注册持久化配置
+     * @return 持久化器
+     */
     @Bean
-    public StateMachinePersister<LeaveStatusEnum, Event ,String> leaveStateMachinePersister(){
-        return new DefaultStateMachinePersister<>(new LeaveStateMachinePersist());
+    public StateMachinePersister<LeaveStatusEnum, Event ,String> localStateMachinePersister(){
+        return new DefaultStateMachinePersister<>(new LocalStateMachinePersist<>());
     };
 
     /**

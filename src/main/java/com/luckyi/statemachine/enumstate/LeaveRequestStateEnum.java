@@ -1,4 +1,4 @@
-package com.luckyi.statemachine.enumState;
+package com.luckyi.statemachine.enumstate;
 
 /**
  * 枚举状态机<br>

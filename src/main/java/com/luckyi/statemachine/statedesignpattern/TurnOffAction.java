@@ -1,4 +1,4 @@
-package com.luckyi.statemachine.stateDesignPattern;
+package com.luckyi.statemachine.statedesignpattern;
 
 /**
  * 关灯实现类
